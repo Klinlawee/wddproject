@@ -6,7 +6,7 @@ const gearItems = [
         category: "footwear",
         rating: 4.8,
         price: "$130",
-        image: "images/salomon-shoes.webp",
+        image: "images/hike-shoes.webp",
         description: "Lightweight and durable hiking shoes with excellent grip and comfort."
     },
     {
