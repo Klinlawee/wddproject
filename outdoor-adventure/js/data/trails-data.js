@@ -47,7 +47,7 @@ const trails = [
         length: "7.2 miles",
         elevation: "1800 ft",
         location: "Snoqualmie Pass",
-        image: "https://images.pexels.com/photos/34192229/pexels-photo-34192229.jpeg?",
+        image: "images/snow.webp",
         description: "One of the most popular alpine lake hikes with stunning turquoise waters."
     },
     {
