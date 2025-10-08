@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safety & Preparedness - Outdoor Adventure Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .safety-checklist {
+            background: var(--light-color);
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            margin: 2rem 0;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding: 1.2rem;
+            background: #f8f9fa;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary-color);
+            transition: var(--transition);
+        }
+        
+        .checklist-item:hover {
+            transform: translateX(5px);
+            background: #e9ecef;
+        }
+        
+        .checklist-item input {
+            margin-right: 1rem;
+            transform: scale(1.3);
+            accent-color: var(--primary-color);
+        }
+        
+        .checklist-item.checked {
+            background: #e8f5e8;
+            border-left-color: var(--accent-color);
+            text-decoration: line-through;
+            color: #666;
+        }
+        
+        .checklist-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .safety-tip {
+            background: var(--light-color);
+            padding: 1.8rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+            border-left: 4px solid var(--accent-color);
+        }
+        
+        .safety-tip h4 {
+            color: var(--secondary-color);
+            margin-bottom: 0.8rem;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar container">
+            <div class="logo-container">
+                <div class="logo">GMK</div>
+                <div class="brand-text">
+                    <h1>Outdoor Adventure Hub</h1>
+                    <p>Your Gateway to Nature's Wonders</p>
+                </div>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="trails.html">Trail Guides</a></li>
+                <li><a href="gear.html">Gear Reviews</a></li>
+                <li><a href="safety.html" class="active">Safety</a></li>
+                <li><a href="contact.html">Community</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger">☰</button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content container">
+            <h1>Safety & Preparedness</h1>
+            <p>Your safety is our priority. Learn essential skills, checklists, and protocols to ensure every hike is safe and enjoyable.</p>
+        </div>
+    </section>
+
+    <!-- Safety Section -->
+    <section id="safety">
+        <div class="container">
+            <h2>The Ten Essentials Checklist</h2>
+            <p class="text-center mb-3">Use this interactive checklist to ensure you're prepared for your hike. The Ten Essentials are critical safety items that should accompany every hiker.</p>
+            
+            <div class="safety-checklist">
+                <div id="checklist-items">
+                    <!-- Checklist items will be populated by JavaScript -->
+                </div>
+                <div class="checklist-actions">
+                    <button class="btn" id="check-all">Check All Items</button>
+                    <button class="btn" id="uncheck-all">Uncheck All Items</button>
+                    <button class="btn" id="print-checklist">Print Checklist</button>
+                    <button class="btn" id="save-checklist">Save Progress</button>
+                </div>
+            </div>
+            
+            <div class="grid" style="margin-top: 3rem;">
+                <div class="card">
+                    <h3><i class="fas fa-cloud-sun"></i> Weather Preparedness</h3>
+                    <p>Pacific Northwest weather can change rapidly. Always check forecasts for your destination's elevation and prepare for rain, even on sunny days.</p>
+                    <ul>
+                        <li>Check weather forecasts for trailhead and summit</li>
+                        <li>Prepare for temperature drops at higher elevations</li>
+                        <li>Carry rain gear regardless of forecast</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-tree"></i> Leave No Trace</h3>
+                    <p>Follow the seven principles of Leave No Trace to minimize your impact on the wilderness and preserve it for future generations.</p>
+                    <ul>
+                        <li>Plan ahead and prepare</li>
+                        <li>Travel and camp on durable surfaces</li>
+                        <li>Dispose of waste properly</li>
+                        <li>Leave what you find</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-exclamation-triangle"></i> Wildlife Safety</h3>
+                    <p>Learn how to safely encounter wildlife including bears, cougars, and mountain goats. Carry bear spray where appropriate.</p>
+                    <ul>
+                        <li>Make noise while hiking to avoid surprising animals</li>
+                        <li>Store food properly using bear canisters</li>
+                        <li>Know how to react to bear and cougar encounters</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Safety Tips Section -->
+    <section class="featured">
+        <div class="container">
+            <h2>Essential Safety Tips</h2>
+            <div class="safety-tips-grid">
+                <div class="safety-tip">
+                    <h4><i class="fas fa-map-marked-alt"></i> Navigation Skills</h4>
+                    <p>Always carry a map and compass and know how to use them. GPS devices are helpful but can fail. Tell someone your route and expected return time.</p>
+                </div>
+                <div class="safety-tip">
+                    <h4><i class="fas fa-tint"></i> Hydration Management</h4>
+                    <p>Carry more water than you think you'll need. Know water sources along your route and always treat water from natural sources before drinking.</p>
+                </div>
+                <div class="safety-tip">
+                    <h4><i class="fas fa-sun"></i> Sun Protection</h4>
+                    <p>UV exposure increases with elevation. Use sunscreen, wear sunglasses, and consider a hat even on cloudy days. Snow can reflect up to 80% of UV rays.</p>
+                </div>
+                <div class="safety-tip">
+                    <h4><i class="fas fa-hiking"></i> Pace Yourself</h4>
+                    <p>Start early, hike at a comfortable pace, and take regular breaks. The slowest hiker should set the pace. Turn around if you're not making expected progress.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Outdoor Adventure Hub</h3>
+                    <p>Your trusted guide to outdoor adventures in the Pacific Northwest and beyond.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="trails.html">Trail Guides</a>
+                    <a href="gear.html">Gear Reviews</a>
+                    <a href="safety.html">Safety</a>
+                    <a href="contact.html">Community</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Safety Alerts</h3>
+                    <p>Subscribe to receive safety alerts and trail condition updates.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="form-control" placeholder="Your email address" required>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="current-year">2024</span> Outdoor Adventure Hub. Built as a learning project.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/data/trails-data.js"></script>
+    <script src="js/data/gear-data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/safety.js"></script>
+</body>
+</html>

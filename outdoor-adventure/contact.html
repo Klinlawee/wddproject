@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Community - Outdoor Adventure Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        .contact-info {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .contact-card {
+            background: var(--light-color);
+            padding: 2.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            border-top: 4px solid var(--primary-color);
+        }
+        
+        .contact-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .contact-card i {
+            font-size: 2.8rem;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        .contact-card h3 {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+        }
+        
+        .community-guidelines {
+            background: linear-gradient(135deg, #e3f2fd, #bbdefb);
+            padding: 2.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border-left: 4px solid var(--primary-color);
+        }
+        
+        .form-success {
+            display: none;
+            background: linear-gradient(135deg, #d4edda, #c3e6cb);
+            color: #155724;
+            padding: 1.8rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            text-align: center;
+            border-left: 4px solid #28a745;
+            box-shadow: var(--shadow);
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar container">
+            <div class="logo-container">
+                <div class="logo">GMK</div>
+                <div class="brand-text">
+                    <h1>Outdoor Adventure Hub</h1>
+                    <p>Your Gateway to Nature's Wonders</p>
+                </div>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="trails.html">Trail Guides</a></li>
+                <li><a href="gear.html">Gear Reviews</a></li>
+                <li><a href="safety.html">Safety</a></li>
+                <li><a href="contact.html" class="active">Community</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger">☰</button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content container">
+            <h1>Community</h1>
+            <p>Share your hiking experiences, ask questions, or report trail conditions. Join our community of Pacific Northwest hiking enthusiasts.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="featured">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            
+            <div class="contact-info">
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email Us</h3>
+                    <p>info@outdooradventurehub.com</p>
+                    <p>We typically respond within 24 hours</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Visit Us</h3>
+                    <p>Seattle, Washington</p>
+                    <p>Based in the heart of the Pacific Northwest</p>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-clock"></i>
+                    <h3>Community Hours</h3>
+                    <p>Monday-Friday: 9AM-5PM</p>
+                    <p>Weekends: Trail reports only</p>
+                </div>
+            </div>
+
+            <div class="community-guidelines">
+                <h3><i class="fas fa-users"></i> Community Guidelines</h3>
+                <p>When submitting trail reports or questions, please:</p>
+                <ul>
+                    <li>Be specific about locations and conditions</li>
+                    <li>Include dates of your hike</li>
+                    <li>Share relevant photos when possible</li>
+                    <li>Be respectful of other community members</li>
+                    <li>Focus on constructive, helpful information</li>
+                </ul>
+            </div>
+
+            <div class="form-success" id="form-success">
+                <h3><i class="fas fa-check-circle"></i> Thank You!</h3>
+                <p>Your message has been sent successfully. We'll get back to you soon.</p>
+            </div>
+
+            <div class="contact-form">
+                <form id="contactForm">
+                    <div class="form-group">
+                        <label for="name">Your Name *</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email Address *</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject *</label>
+                        <select id="subject" class="form-control" required>
+                            <option value="">Select a subject</option>
+                            <option value="trail-report">Trail Condition Report</option>
+                            <option value="gear-question">Gear Question</option>
+                            <option value="safety-question">Safety Question</option>
+                            <option value="website-feedback">Website Feedback</option>
+                            <option value="partnership">Partnership Inquiry</option>
+                            <option value="other">Other</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message *</label>
+                        <textarea id="message" class="form-control" required placeholder="Please provide detailed information about your inquiry..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" required> 
+                            I agree to the community guidelines and privacy policy
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+        <div class="container">
+            <h2>Frequently Asked Questions</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3>How often are trail conditions updated?</h3>
+                    <p>We update trail conditions based on community reports and our own verification. Popular trails are updated weekly during hiking season.</p>
+                </div>
+                <div class="card">
+                    <h3>Can I contribute my own trail reviews?</h3>
+                    <p>Yes! We welcome community contributions. Use the contact form to submit detailed trail reports, including conditions and photos.</p>
+                </div>
+                <div class="card">
+                    <h3>Do you offer guided hikes?</h3>
+                    <p>Currently, we focus on providing information rather than guided services. However, we may partner with certified guides for special events.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Outdoor Adventure Hub</h3>
+                    <p>Your trusted guide to outdoor adventures in the Pacific Northwest and beyond.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="trails.html">Trail Guides</a>
+                    <a href="gear.html">Gear Reviews</a>
+                    <a href="safety.html">Safety</a>
+                    <a href="contact.html">Community</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Stay Connected</h3>
+                    <p>Join our community newsletter for the latest updates and hiking tips.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="form-control" placeholder="Your email address" required>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="current-year">2024</span> Outdoor Adventure Hub. Built as a learning project.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/data/trails-data.js"></script>
+    <script src="js/data/gear-data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/contact.js"></script>
+</body>
+</html>

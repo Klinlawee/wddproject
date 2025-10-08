@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Trail Guides - Outdoor Adventure Hub</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+    <!-- Navigation -->
+    <header>
+        <nav class="navbar container">
+            <div class="logo-container">
+                <div class="logo">GMK</div>
+                <div class="brand-text">
+                    <h1>Outdoor Adventure Hub</h1>
+                    <p>Your Gateway to Nature's Wonders</p>
+                </div>
+            </div>
+            <ul class="nav-links" id="nav-links">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="trails.html" class="active">Trail Guides</a></li>
+                <li><a href="gear.html">Gear Reviews</a></li>
+                <li><a href="safety.html">Safety</a></li>
+                <li><a href="contact.html">Community</a></li>
+            </ul>
+            <button class="hamburger" id="hamburger">☰</button>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content container">
+            <h1>Trail Guides</h1>
+            <p>Explore our comprehensive collection of hiking trails in the Pacific Northwest. Find the perfect adventure for your skill level and interests.</p>
+        </div>
+    </section>
+
+    <!-- Trail Guides Section -->
+    <section id="trails">
+        <div class="container">
+            <h2>Find Your Perfect Trail</h2>
+            <div class="filter-container">
+                <button class="filter-btn active" data-filter="all">All Trails</button>
+                <button class="filter-btn" data-filter="easy">Easy</button>
+                <button class="filter-btn" data-filter="moderate">Moderate</button>
+                <button class="filter-btn" data-filter="difficult">Difficult</button>
+                <button class="filter-btn" data-filter="family">Family Friendly</button>
+            </div>
+            <div class="grid" id="trail-grid">
+                <!-- Trail cards will be populated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Trail Resources Section -->
+    <section class="featured">
+        <div class="container">
+            <h2>Trail Resources</h2>
+            <div class="grid">
+                <div class="card">
+                    <h3><i class="fas fa-map"></i> Trail Maps & Navigation</h3>
+                    <p>Download detailed trail maps and learn essential navigation skills for safe hiking adventures.</p>
+                    <a href="safety.html" class="btn btn-primary">Learn More</a>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-cloud-sun"></i> Seasonal Considerations</h3>
+                    <p>Understand how trail conditions change with seasons and how to prepare for different weather.</p>
+                    <a href="safety.html" class="btn btn-primary">Seasonal Tips</a>
+                </div>
+                <div class="card">
+                    <h3><i class="fas fa-paw"></i> Wildlife Safety</h3>
+                    <p>Learn how to safely encounter wildlife and minimize your impact on their natural habitat.</p>
+                    <a href="safety.html" class="btn btn-primary">Wildlife Guide</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Outdoor Adventure Hub</h3>
+                    <p>Your trusted guide to outdoor adventures in the Pacific Northwest and beyond.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <a href="index.html">Home</a>
+                    <a href="trails.html">Trail Guides</a>
+                    <a href="gear.html">Gear Reviews</a>
+                    <a href="safety.html">Safety</a>
+                    <a href="contact.html">Community</a>
+                </div>
+                <div class="footer-section">
+                    <h3>Trail Updates</h3>
+                    <p>Subscribe to receive trail condition updates and new guide notifications.</p>
+                    <form class="newsletter-form">
+                        <input type="email" class="form-control" placeholder="Your email address" required>
+                        <button type="submit" class="btn">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; <span id="current-year">2024</span> Outdoor Adventure Hub. Built as a learning project.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/data/trails-data.js"></script>
+    <script src="js/data/gear-data.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/trails.js"></script>
+</body>
+</html>
