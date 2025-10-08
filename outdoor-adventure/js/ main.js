@@ -5,25 +5,26 @@ document.addEventListener('DOMContentLoaded', function() {
     const navLinks = document.getElementById('nav-links');
 
     if (hamburger && navLinks) {
-        hamburger.addEventListener('click', () => {
+        hamburger.addEventListener('click', function(e) {
+            e.stopPropagation(); // Prevent the click from bubbling up
             navLinks.classList.toggle('active');
             // Toggle hamburger icon
-            hamburger.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
+            this.textContent = navLinks.classList.contains('active') ? '✕' : '☰';
         });
 
         // Close mobile menu when clicking outside
-        document.addEventListener('click', (e) => {
+        document.addEventListener('click', function(e) {
             if (!e.target.closest('.navbar') && navLinks.classList.contains('active')) {
                 navLinks.classList.remove('active');
                 hamburger.textContent = '☰';
             }
         });
 
-        // Close mobile menu when clicking on a link - WITH ERROR HANDLING
+        // Close mobile menu when clicking on a link
         const navLinksItems = navLinks.querySelectorAll('a');
         if (navLinksItems.length > 0) {
             navLinksItems.forEach(link => {
-                link.addEventListener('click', () => {
+                link.addEventListener('click', function() {
                     navLinks.classList.remove('active');
                     if (hamburger) hamburger.textContent = '☰';
                 });
@@ -37,7 +38,7 @@ document.addEventListener('DOMContentLoaded', function() {
         currentYearElement.textContent = new Date().getFullYear();
     }
 
-    // Smooth scrolling for navigation links - WITH ERROR HANDLING
+    // Smooth scrolling for navigation links
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             const targetId = this.getAttribute('href');
@@ -64,7 +65,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Newsletter signup for all pages - WITH ERROR HANDLING
+    // Newsletter signup for all pages
     const newsletterForms = document.querySelectorAll('.newsletter-form');
     newsletterForms.forEach(form => {
         form.addEventListener('submit', function(e) {
@@ -93,7 +94,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Add loading animation to cards - WITH ERROR HANDLING
+    // Add loading animation to cards
     const cards = document.querySelectorAll('.card');
     if (cards.length > 0) {
         const cardObserver = new IntersectionObserver((entries) => {
@@ -116,6 +117,5 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Additional safety features
     console.log('Outdoor Adventure Hub - Main JavaScript loaded successfully');
 });
