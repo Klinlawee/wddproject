@@ -36,6 +36,15 @@ document.addEventListener('DOMContentLoaded', function() {
             this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Registering...';
             this.disabled = true;
             
+            // Save to localStorage
+            const registrations = JSON.parse(localStorage.getItem('eventRegistrations') || '[]');
+            registrations.push({
+                event: eventName,
+                date: eventDate,
+                registeredAt: new Date().toISOString()
+            });
+            localStorage.setItem('eventRegistrations', JSON.stringify(registrations));
+            
             // Simulate registration process
             setTimeout(() => {
                 alert(`🎉 Successfully registered for:\n"${eventName}"\nDate: ${eventDate}\n\nConfirmation details will be sent to your email.`);

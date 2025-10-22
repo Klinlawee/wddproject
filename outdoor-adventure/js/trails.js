@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const trailCard = document.createElement('div');
             trailCard.className = 'card';
             trailCard.innerHTML = `
-                <img src="${trail.image}" alt="${trail.name}">
+                <img src="${trail.image}" alt="${trail.name}" loading="lazy">
                 <h3>${trail.name}</h3>
                 <div class="meta">
                     <span><i class="fas fa-signal"></i> ${trail.difficulty.charAt(0).toUpperCase() + trail.difficulty.slice(1)}</span>

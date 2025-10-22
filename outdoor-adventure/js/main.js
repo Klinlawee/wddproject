@@ -81,6 +81,14 @@ document.addEventListener('DOMContentLoaded', function() {
                         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Subscribing...';
                         submitBtn.disabled = true;
                         
+                        // Save to localStorage
+                        const subscribers = JSON.parse(localStorage.getItem('newsletterSubscribers') || '[]');
+                        subscribers.push({
+                            email: email,
+                            date: new Date().toISOString()
+                        });
+                        localStorage.setItem('newsletterSubscribers', JSON.stringify(subscribers));
+                        
                         // Simulate API call
                         setTimeout(() => {
                             alert(`Thank you for subscribing with: ${email}\nYou'll receive our next newsletter soon!`);
@@ -114,6 +122,30 @@ document.addEventListener('DOMContentLoaded', function() {
             card.style.transform = 'translateY(20px)';
             card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
             cardObserver.observe(card);
+        });
+    }
+
+    // Implement lazy loading for images below the fold
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    if ('IntersectionObserver' in window) {
+        const imageObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    img.src = img.dataset.src || img.src;
+                    img.classList.remove('lazy');
+                    imageObserver.unobserve(img);
+                }
+            });
+        });
+
+        lazyImages.forEach(img => {
+            if (!img.classList.contains('lazy-loaded')) {
+                img.dataset.src = img.src;
+                img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PC9zdmc+';
+                img.classList.add('lazy');
+                imageObserver.observe(img);
+            }
         });
     }
 
