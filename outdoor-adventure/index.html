@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Outdoor Adventure Hub - Your Gateway to Nature's Wonders</title>
+    <meta name="description" content="Discover hiking trails, gear reviews, safety tips, and join our outdoor community in the Pacific Northwest">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
 </head>
@@ -25,7 +26,7 @@
                 <li><a href="safety.html">Safety</a></li>
                 <li><a href="contact.html">Community</a></li>
             </ul>
-            <button class="hamburger" id="hamburger">☰</button>
+            <button class="hamburger" id="hamburger" aria-label="Toggle navigation menu">☰</button>
         </nav>
     </header>
 
@@ -36,7 +37,7 @@
             <p>Find the perfect trails, gear, and community for your outdoor explorations in the Pacific Northwest and beyond.</p>
             <div class="hero-search">
                 <form class="search-form">
-                    <input type="text" class="form-control" placeholder="Search for trails, gear, or destinations...">
+                    <input type="text" class="form-control" placeholder="Search for trails, gear, or destinations..." aria-label="Search for outdoor adventures">
                     <button type="submit" class="btn"><i class="fas fa-search"></i> Search</button>
                 </form>
             </div>
@@ -51,24 +52,25 @@
                 <div>
                     <h2>Featured Trail of the Week</h2>
                     <div class="featured-trail">
-                        <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Lake Serene Trail">
+                        <img src="https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
+                             alt="Lake Serene Trail with turquoise alpine lake" loading="lazy">
                         <div class="featured-trail-content">
                             <h3>Lake Serene Trail</h3>
                             <div class="trail-stats">
                                 <div class="trail-stat">
-                                    <i class="fas fa-map-marker-alt"></i>
+                                    <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
                                     <span>Central Cascades</span>
                                 </div>
                                 <div class="trail-stat">
-                                    <i class="fas fa-signal"></i>
+                                    <i class="fas fa-signal" aria-hidden="true"></i>
                                     <span>Moderate</span>
                                 </div>
                                 <div class="trail-stat">
-                                    <i class="fas fa-hiking"></i>
+                                    <i class="fas fa-hiking" aria-hidden="true"></i>
                                     <span>7.2 miles</span>
                                 </div>
                                 <div class="trail-stat">
-                                    <i class="fas fa-mountain"></i>
+                                    <i class="fas fa-mountain" aria-hidden="true"></i>
                                     <span>2,000 ft gain</span>
                                 </div>
                             </div>
@@ -145,19 +147,19 @@
         <!-- Home Sections -->
         <section class="home-sections">
             <div class="home-section">
-                <i class="fas fa-map-marked-alt"></i>
+                <i class="fas fa-map-marked-alt" aria-hidden="true"></i>
                 <h3>Trail Guides</h3>
                 <p>Discover detailed trail guides with maps, difficulty ratings, and current conditions for hikes throughout the Pacific Northwest.</p>
                 <a href="trails.html" class="btn-primary">Explore Trails</a>
             </div>
             <div class="home-section">
-                <i class="fas fa-hiking"></i>
+                <i class="fas fa-hiking" aria-hidden="true"></i>
                 <h3>Gear Reviews</h3>
                 <p>Get honest reviews of hiking gear tested in real conditions. Find the right equipment for your adventures.</p>
                 <a href="gear.html" class="btn-primary">View Gear</a>
             </div>
             <div class="home-section">
-                <i class="fas fa-users"></i>
+                <i class="fas fa-users" aria-hidden="true"></i>
                 <h3>Community</h3>
                 <p>Connect with fellow outdoor enthusiasts, share experiences, and join group outings and events.</p>
                 <a href="contact.html" class="btn-primary">Join Community</a>
@@ -169,7 +171,7 @@
             <h3>Stay Updated on Outdoor Adventures</h3>
             <p>Get the latest trail conditions, gear reviews, and community events delivered to your inbox.</p>
             <form class="newsletter-form">
-                <input type="email" class="form-control" placeholder="Your email address" required>
+                <input type="email" class="form-control" placeholder="Your email address" required aria-label="Your email address for newsletter">
                 <button type="submit" class="btn">Subscribe</button>
             </form>
         </section>
@@ -183,10 +185,10 @@
                     <h3>Outdoor Adventure Hub</h3>
                     <p>Your trusted guide to outdoor adventures in the Pacific Northwest and beyond. Discover breathtaking trails, essential gear, and connect with fellow enthusiasts.</p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#" aria-label="Visit our Facebook page"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Visit our Twitter page"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Visit our Instagram page"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Visit our YouTube channel"><i class="fab fa-youtube"></i></a>
                     </div>
                 </div>
                 <div class="footer-section">
