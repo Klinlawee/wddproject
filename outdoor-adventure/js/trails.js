@@ -13,7 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const trailCard = document.createElement('div');
             trailCard.className = 'card';
             trailCard.innerHTML = `
-                <img src="${trail.image}" alt="${trail.name}" loading="lazy">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PC9zdmc+" 
+                     data-src="${trail.image}" 
+                     alt="${trail.name}" 
+                     class="lazy"
+                     loading="lazy">
                 <h3>${trail.name}</h3>
                 <div class="meta">
                     <span><i class="fas fa-signal"></i> ${trail.difficulty.charAt(0).toUpperCase() + trail.difficulty.slice(1)}</span>
@@ -25,6 +29,12 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             trailGrid.appendChild(trailCard);
         });
+
+        // Re-initialize lazy loading for newly created images
+        setTimeout(() => {
+            const event = new Event('DOMContentModified');
+            document.dispatchEvent(event);
+        }, 100);
     }
 
     // Trail Filter Functionality

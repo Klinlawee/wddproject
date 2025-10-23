@@ -13,7 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
             const gearCard = document.createElement('div');
             gearCard.className = 'card';
             gearCard.innerHTML = `
-                <img src="${item.image}" alt="${item.name}">
+                <img src="data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PC9zdmc+" 
+                     data-src="${item.image}" 
+                     alt="${item.name}" 
+                     class="lazy"
+                     loading="lazy">
                 <h3>${item.name}</h3>
                 <div class="meta">
                     <span><i class="fas fa-star"></i> ${item.rating}/5.0</span>
@@ -24,6 +28,12 @@ document.addEventListener('DOMContentLoaded', function() {
             `;
             gearGrid.appendChild(gearCard);
         });
+
+        // Re-initialize lazy loading for newly created images
+        setTimeout(() => {
+            const event = new Event('DOMContentModified');
+            document.dispatchEvent(event);
+        }, 100);
     }
 
     // Gear Category Filter Functionality

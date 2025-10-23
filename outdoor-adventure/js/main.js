@@ -125,29 +125,80 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Implement lazy loading for images below the fold
-    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-    if ('IntersectionObserver' in window) {
-        const imageObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const img = entry.target;
-                    img.src = img.dataset.src || img.src;
-                    img.classList.remove('lazy');
-                    imageObserver.unobserve(img);
+    // Enhanced Lazy Loading for ALL images across ALL pages
+    function initLazyLoading() {
+        const lazyImages = document.querySelectorAll('img[data-src], img[loading="lazy"]');
+        
+        if ('IntersectionObserver' in window) {
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        
+                        // Handle both data-src and regular lazy loading
+                        if (img.dataset.src) {
+                            img.src = img.dataset.src;
+                            img.classList.remove('lazy');
+                        }
+                        
+                        // Remove loading="lazy" after image loads to prevent double observation
+                        img.addEventListener('load', () => {
+                            img.removeAttribute('loading');
+                        });
+                        
+                        imageObserver.unobserve(img);
+                    }
+                });
+            }, {
+                rootMargin: '50px 0px', // Start loading 50px before image enters viewport
+                threshold: 0.1
+            });
+
+            lazyImages.forEach(img => {
+                // Mark images that are below the fold for lazy loading
+                if (isBelowTheFold(img)) {
+                    if (!img.dataset.src) {
+                        img.dataset.src = img.src;
+                        img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PC9zdmc+';
+                        img.classList.add('lazy');
+                    }
+                    imageObserver.observe(img);
                 }
             });
-        });
+        } else {
+            // Fallback for browsers that don't support IntersectionObserver
+            lazyImages.forEach(img => {
+                if (img.dataset.src) {
+                    img.src = img.dataset.src;
+                }
+            });
+        }
+    }
 
-        lazyImages.forEach(img => {
-            if (!img.classList.contains('lazy-loaded')) {
-                img.dataset.src = img.src;
-                img.src = 'data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMTAwJSIgaGVpZ2h0PSIxMDAlIiBmaWxsPSIjZGRkIi8+PC9zdmc+';
-                img.classList.add('lazy');
-                imageObserver.observe(img);
+    // Helper function to check if image is below the fold
+    function isBelowTheFold(element) {
+        const viewportHeight = window.innerHeight;
+        const elementTop = element.getBoundingClientRect().top;
+        return elementTop > viewportHeight;
+    }
+
+    // Initialize lazy loading
+    initLazyLoading();
+
+    // Re-initialize lazy loading after dynamic content loads
+    const observer = new MutationObserver((mutations) => {
+        mutations.forEach((mutation) => {
+            if (mutation.type === 'childList') {
+                initLazyLoading();
             }
         });
-    }
+    });
+
+    // Observe the entire document for changes
+    observer.observe(document.body, {
+        childList: true,
+        subtree: true
+    });
 
     console.log('Outdoor Adventure Hub - Main JavaScript loaded successfully');
 });

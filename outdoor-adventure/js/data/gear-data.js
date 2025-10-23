@@ -6,7 +6,7 @@ const gearItems = [
         category: "footwear",
         rating: 4.8,
         price: "$130",
-        image: "images/hike-shoe.webp",
+        image: "https://images.unsplash.com/photo-1544966503-7cc5ac882d5b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
         description: "Lightweight and durable hiking shoes with excellent grip and comfort."
     },
     {
@@ -15,7 +15,7 @@ const gearItems = [
         category: "backpacks",
         rating: 4.9,
         price: "$280",
-        image: "images/osprey-backpack.webp", // You'll need to add this image
+        image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
         description: "Comfortable backpack with Anti-Gravity suspension system for long hikes."
     },
     {
@@ -24,7 +24,7 @@ const gearItems = [
         category: "navigation",
         rating: 4.7,
         price: "$400",
-        image: "images/grande_garmin-inreach-mini-2.webp",
+        image: "https://images.unsplash.com/photo-1594736797933-d0e02164bf56?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2071&q=80",
         description: "Compact satellite communicator for navigation and emergency messaging."
     },
     {
@@ -33,21 +33,7 @@ const gearItems = [
         category: "safety",
         rating: 4.5,
         price: "$40",
-        image: "images/black-diamond-spot-headlamp.webp",
+        image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1974&q=80",
         description: "Bright, waterproof headlamp with multiple lighting modes."
     }
-];
-
-// Ten Essentials Checklist
-const checklistItems = [
-    "Navigation (map, compass, GPS)",
-    "Headlamp/Flashlight (with extra batteries)",
-    "Sun Protection (sunglasses, sunscreen, hat)",
-    "First Aid Kit",
-    "Knife/Multi-tool",
-    "Fire (waterproof matches/lighter)",
-    "Emergency Shelter (tent, tarp, bivy)",
-    "Extra Food (beyond minimum expectations)",
-    "Extra Water (or means to purify water)",
-    "Extra Clothes (appropriate for weather)"
 ];
