@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bidding System - Submit & Reveal</title>
+    <title>Three Name Bidding System</title>
     <style>
         * {
             box-sizing: border-box;
@@ -90,18 +90,15 @@
             box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
         }
         
-        .initials-inputs {
+        .name-inputs {
             display: flex;
+            flex-direction: column;
             gap: 15px;
             margin-top: 10px;
         }
         
-        .initials-inputs input {
+        .name-inputs input {
             flex: 1;
-            text-align: center;
-            font-weight: bold;
-            font-size: 18px;
-            text-transform: uppercase;
         }
         
         button {
@@ -127,6 +124,13 @@
         
         button:active {
             transform: translateY(0);
+        }
+        
+        button:disabled {
+            background: #bdc3c7;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
         
         .result {
@@ -161,9 +165,6 @@
             border-radius: 8px;
             margin-bottom: 15px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
             transition: transform 0.2s;
         }
         
@@ -171,28 +172,25 @@
             transform: translateX(5px);
         }
         
-        .bid-initials {
+        .bid-names {
             display: flex;
             gap: 10px;
+            margin-top: 10px;
         }
         
-        .initial {
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+        .name-tag {
+            padding: 8px 12px;
             background-color: #eef2f7;
-            border-radius: 50%;
+            border-radius: 20px;
             font-weight: bold;
             border: 2px solid #bdc3c7;
         }
         
-        .selected-initial {
+        .selected-name {
             background-color: #3498db;
             color: white;
             border-color: #2980b9;
-            transform: scale(1.1);
+            transform: scale(1.05);
             box-shadow: 0 0 10px rgba(52, 152, 219, 0.5);
         }
         
@@ -269,9 +267,6 @@
             border-radius: 8px;
             margin-bottom: 10px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
         
         .no-bids {
@@ -301,10 +296,6 @@
         }
         
         @media (max-width: 600px) {
-            .initials-inputs {
-                flex-direction: column;
-            }
-            
             .action-buttons {
                 flex-direction: column;
                 align-items: center;
@@ -312,6 +303,10 @@
             
             .action-buttons button {
                 width: 100%;
+            }
+            
+            .bid-names {
+                flex-direction: column;
             }
         }
         
@@ -369,12 +364,24 @@
             background-color: #2ecc71;
             color: white;
         }
+        
+        .name-example {
+            font-size: 14px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
+        
+        .participant-id {
+            font-size: 12px;
+            color: #7f8c8d;
+            margin-top: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Bidding System</h1>
-        <p class="subtitle">Submit your bids, then reveal the winner when everyone has entered</p>
+        <h1>Three Name Bidding System</h1>
+        <p class="subtitle">Enter your name three times for bidding. One will be randomly selected!</p>
         
         <div class="phase-indicator">
             <div class="phase active" id="phase1">1. Submit Bids</div>
@@ -384,27 +391,23 @@
         <div class="instructions">
             <h3>How It Works</h3>
             <ol>
-                <li>Enter your full name and three different initials</li>
+                <li>Enter your name three times (can be the same or different variations)</li>
                 <li>Submit your bid - it will be saved locally</li>
                 <li>After all participants have submitted, click "Reveal Winner"</li>
-                <li>The system will randomly select one initial from each participant</li>
-                <li>The winner is determined by the highest alphabetical initial</li>
+                <li>The system will randomly select one name from each participant</li>
+                <li>The winner is determined by alphabetical order of selected names</li>
             </ol>
         </div>
         
         <div class="card">
             <div class="form-group">
-                <label for="bidderName">Your Full Name:</label>
-                <input type="text" id="bidderName" placeholder="Enter your full name">
-            </div>
-            
-            <div class="form-group">
-                <label>Your Three Bidding Initials:</label>
-                <div class="initials-inputs">
-                    <input type="text" id="initial1" placeholder="A" maxlength="1">
-                    <input type="text" id="initial2" placeholder="B" maxlength="1">
-                    <input type="text" id="initial3" placeholder="C" maxlength="1">
+                <label>Enter Your Name Three Times:</label>
+                <div class="name-inputs">
+                    <input type="text" id="name1" placeholder="Name entry 1">
+                    <input type="text" id="name2" placeholder="Name entry 2">
+                    <input type="text" id="name3" placeholder="Name entry 3">
                 </div>
+                <div class="name-example">You can enter the same name or different variations (e.g., John, John Smith, Johnny)</div>
             </div>
             
             <button id="submitBid">Submit Bid</button>
@@ -436,72 +439,58 @@
     <script>
         // Store all bids
         let allBids = [];
+        let participantCounter = 1;
         
         // Load bids from localStorage on page load
         document.addEventListener('DOMContentLoaded', function() {
             const savedBids = localStorage.getItem('biddingSystemBids');
+            const savedCounter = localStorage.getItem('participantCounter');
+            
             if (savedBids) {
                 allBids = JSON.parse(savedBids);
                 updateSubmittedList();
             }
+            
+            if (savedCounter) {
+                participantCounter = parseInt(savedCounter);
+            }
         });
         
         document.getElementById('submitBid').addEventListener('click', function() {
-            const name = document.getElementById('bidderName').value.trim();
-            const initial1 = document.getElementById('initial1').value.trim().toUpperCase();
-            const initial2 = document.getElementById('initial2').value.trim().toUpperCase();
-            const initial3 = document.getElementById('initial3').value.trim().toUpperCase();
+            const name1 = document.getElementById('name1').value.trim();
+            const name2 = document.getElementById('name2').value.trim();
+            const name3 = document.getElementById('name3').value.trim();
             
             // Validate inputs
-            if (!name) {
-                alert('Please enter your name');
+            if (!name1 || !name2 || !name3) {
+                alert('Please enter all three name entries');
                 return;
             }
             
-            if (!initial1 || !initial2 || !initial3) {
-                alert('Please enter all three initials');
-                return;
-            }
-            
-            // Validate initials are letters
-            const letterRegex = /^[A-Z]$/;
-            if (!letterRegex.test(initial1) || !letterRegex.test(initial2) || !letterRegex.test(initial3)) {
-                alert('Please enter valid letters (A-Z) for initials');
-                return;
-            }
-            
-            // Check for duplicates
-            if (initial1 === initial2 || initial1 === initial3 || initial2 === initial3) {
-                alert('Please enter three different initials');
-                return;
-            }
-            
-            // Check if name already exists
-            if (allBids.some(bid => bid.name === name)) {
-                alert('This name has already been used. Please use a different name.');
-                return;
-            }
+            // Create participant ID
+            const participantId = `P${participantCounter.toString().padStart(3, '0')}`;
+            participantCounter++;
             
             // Add to all bids
             allBids.push({
-                name: name,
-                initials: [initial1, initial2, initial3]
+                id: participantId,
+                names: [name1, name2, name3]
             });
             
             // Save to localStorage
             localStorage.setItem('biddingSystemBids', JSON.stringify(allBids));
+            localStorage.setItem('participantCounter', participantCounter.toString());
             
             // Update the submitted bids list
             updateSubmittedList();
             
             // Clear form
-            document.getElementById('bidderName').value = '';
-            document.getElementById('initial1').value = '';
-            document.getElementById('initial2').value = '';
-            document.getElementById('initial3').value = '';
+            document.getElementById('name1').value = '';
+            document.getElementById('name2').value = '';
+            document.getElementById('name3').value = '';
             
             // Show success message
-            alert(`Thank you ${name}! Your bid has been submitted.`);
+            alert(`Thank you! Your bid has been submitted as ${participantId}.`);
         });
         
         function updateSubmittedList() {
@@ -517,11 +506,11 @@
                 const submittedItem = document.createElement('div');
                 submittedItem.className = 'submitted-item';
                 submittedItem.innerHTML = `
-                    <div><strong>${bid.name}</strong></div>
-                    <div class="bid-initials">
-                        <div class="initial">${bid.initials[0]}</div>
-                        <div class="initial">${bid.initials[1]}</div>
-                        <div class="initial">${bid.initials[2]}</div>
+                    <div><strong>Participant ${bid.id}</strong></div>
+                    <div class="bid-names">
+                        <div class="name-tag">${bid.names[0]}</div>
+                        <div class="name-tag">${bid.names[1]}</div>
+                        <div class="name-tag">${bid.names[2]}</div>
                     </div>
                 `;
                 submittedList.appendChild(submittedItem);
@@ -553,75 +542,76 @@
             const selectedBidInfo = document.getElementById('selectedBidInfo');
             const bidList = document.getElementById('bidList');
             
-            // Randomly select one initial for each bidder
+            // Randomly select one name for each bidder
             const processedBids = allBids.map(bid => {
                 const selectedIndex = Math.floor(Math.random() * 3);
                 return {
                     ...bid,
-                    selectedInitial: bid.initials[selectedIndex],
+                    selectedName: bid.names[selectedIndex],
                     selectedIndex: selectedIndex
                 };
             });
             
-            // Display all bids with their selected initial
+            // Display all bids with their selected name
             bidList.innerHTML = '';
             processedBids.forEach(bid => {
                 const bidItem = document.createElement('div');
                 bidItem.className = 'bid-item';
                 
-                const initialsHTML = bid.initials.map((initial, i) => 
-                    `<div class="initial ${i === bid.selectedIndex ? 'selected-initial' : ''}">${initial}</div>`
+                const namesHTML = bid.names.map((name, i) => 
+                    `<div class="name-tag ${i === bid.selectedIndex ? 'selected-name' : ''}">${name}</div>`
                 ).join('');
                 
                 bidItem.innerHTML = `
                     <div>
-                        <strong>${bid.name}</strong>
+                        <strong>Participant ${bid.id}</strong>
                     </div>
-                    <div class="bid-initials">
-                        ${initialsHTML}
+                    <div class="bid-names">
+                        ${namesHTML}
                     </div>
+                    <div class="participant-id">Selected: "${bid.selectedName}"</div>
                 `;
                 bidList.appendChild(bidItem);
             });
             
             // Determine winner
-            let highestInitial = 'A';
+            let highestName = 'A';
             let winner = null;
             
             processedBids.forEach(bid => {
-                if (bid.selectedInitial > highestInitial) {
-                    highestInitial = bid.selectedInitial;
+                if (bid.selectedName > highestName) {
+                    highestName = bid.selectedName;
                     winner = bid;
                 }
             });
             
             // Check for ties
-            const winners = processedBids.filter(bid => bid.selectedInitial === highestInitial);
+            const winners = processedBids.filter(bid => bid.selectedName === highestName);
             
             if (winners.length === 1) {
                 // Single winner
-                selectedBidInfo.textContent = `The winner is ${winner.name} with initial: ${winner.selectedInitial}`;
+                selectedBidInfo.textContent = `The winner is Participant ${winner.id} with name: "${winner.selectedName}"`;
                 
                 const winnerItem = document.createElement('div');
                 winnerItem.className = 'bid-item winner';
                 winnerItem.innerHTML = `
-                    <div><strong>WINNER: ${winner.name}</strong> with initial: ${winner.selectedInitial}</div>
-                    <div class="bid-initials">
-                        <div class="initial selected-initial">${winner.selectedInitial}</div>
+                    <div><strong>WINNER: Participant ${winner.id}</strong> with name: "${winner.selectedName}"</div>
+                    <div class="bid-names">
+                        <div class="name-tag selected-name">${winner.selectedName}</div>
                     </div>
                 `;
                 bidList.appendChild(winnerItem);
             } else {
                 // Tie - random selection between tied winners
                 const randomWinner = winners[Math.floor(Math.random() * winners.length)];
-                selectedBidInfo.textContent = `Tie between ${winners.length} participants! Randomly selected winner: ${randomWinner.name}`;
+                selectedBidInfo.textContent = `Tie between ${winners.length} participants! Randomly selected winner: Participant ${randomWinner.id}`;
                 
                 const winnerItem = document.createElement('div');
                 winnerItem.className = 'bid-item winner';
                 winnerItem.innerHTML = `
-                    <div><strong>WINNER: ${randomWinner.name}</strong> (random selection from tie) with initial: ${randomWinner.selectedInitial}</div>
-                    <div class="bid-initials">
-                        <div class="initial selected-initial">${randomWinner.selectedInitial}</div>
+                    <div><strong>WINNER: Participant ${randomWinner.id}</strong> (random selection from tie) with name: "${randomWinner.selectedName}"</div>
+                    <div class="bid-names">
+                        <div class="name-tag selected-name">${randomWinner.selectedName}</div>
                     </div>
                 `;
                 bidList.appendChild(winnerItem);
@@ -637,7 +627,9 @@
         document.getElementById('resetBtn').addEventListener('click', function() {
             if (confirm('Are you sure you want to clear all submitted bids?')) {
                 allBids = [];
+                participantCounter = 1;
                 localStorage.removeItem('biddingSystemBids');
+                localStorage.removeItem('participantCounter');
                 updateSubmittedList();
                 document.getElementById('resultSection').style.display = 'none';
                 
@@ -646,7 +638,7 @@
                 document.getElementById('phase1').classList.remove('completed');
                 document.getElementById('phase2').classList.remove('active');
                 
-                document.getElementById('bidderName').focus();
+                document.getElementById('name1').focus();
             }
         });
     </script>
