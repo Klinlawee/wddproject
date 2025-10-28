@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Bidding System</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: white;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2c3e50;
+            margin-bottom: 20px;
+        }
+        
+        .description {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #7f8c8d;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+        
+        .bid-inputs {
+            display: flex;
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .bid-inputs input {
+            flex: 1;
+        }
+        
+        button {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+            display: block;
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        button:hover {
+            background-color: #2980b9;
+        }
+        
+        .result {
+            margin-top: 30px;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 5px;
+            display: none;
+        }
+        
+        .result h2 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+        }
+        
+        .bid-list {
+            margin: 15px 0;
+        }
+        
+        .bid-item {
+            padding: 10px;
+            background-color: white;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+        }
+        
+        .winner {
+            background-color: #d4edda;
+            border-left: 4px solid #28a745;
+            font-weight: bold;
+        }
+        
+        .print-btn {
+            background-color: #28a745;
+            width: auto;
+            margin-top: 10px;
+        }
+        
+        .print-btn:hover {
+            background-color: #218838;
+        }
+        
+        @media print {
+            body * {
+                visibility: hidden;
+            }
+            .container, .container * {
+                visibility: visible;
+            }
+            .container {
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                box-shadow: none;
+            }
+            button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Simple Bidding System</h1>
+        <p class="description">Enter your name and three bid amounts. The system will randomly select one of your bids to compete with others.</p>
+        
+        <div class="form-group">
+            <label for="bidderName">Your Name:</label>
+            <input type="text" id="bidderName" placeholder="Enter your name">
+        </div>
+        
+        <div class="form-group">
+            <label>Your Three Bids:</label>
+            <div class="bid-inputs">
+                <input type="text" id="bid1" placeholder="Bid 1">
+                <input type="text" id="bid2" placeholder="Bid 2">
+                <input type="text" id="bid3" placeholder="Bid 3">
+            </div>
+        </div>
+        
+        <button id="submitBid">Submit Bid</button>
+        
+        <div class="result" id="resultSection">
+            <h2>Bidding Results</h2>
+            <p id="selectedBidInfo"></p>
+            <div class="bid-list" id="bidList"></div>
+            <button class="print-btn" id="printBtn">Print Results</button>
+        </div>
+    </div>
+
+    <script>
+        // Store all bids
+        let allBids = [];
+        
+        document.getElementById('submitBid').addEventListener('click', function() {
+            const name = document.getElementById('bidderName').value.trim();
+            const bid1 = document.getElementById('bid1').value.trim();
+            const bid2 = document.getElementById('bid2').value.trim();
+            const bid3 = document.getElementById('bid3').value.trim();
+            
+            // Validate inputs
+            if (!name || !bid1 || !bid2 || !bid3) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            // Randomly select one of the three bids
+            const bids = [bid1, bid2, bid3];
+            const selectedBid = bids[Math.floor(Math.random() * 3)];
+            
+            // Add to all bids
+            allBids.push({
+                name: name,
+                bids: bids,
+                selectedBid: selectedBid
+            });
+            
+            // Display results
+            displayResults();
+            
+            // Clear form
+            document.getElementById('bidderName').value = '';
+            document.getElementById('bid1').value = '';
+            document.getElementById('bid2').value = '';
+            document.getElementById('bid3').value = '';
+        });
+        
+        function displayResults() {
+            const resultSection = document.getElementById('resultSection');
+            const selectedBidInfo = document.getElementById('selectedBidInfo');
+            const bidList = document.getElementById('bidList');
+            
+            resultSection.style.display = 'block';
+            
+            // Show the latest bidder's selected bid
+            const latestBid = allBids[allBids.length - 1];
+            selectedBidInfo.textContent = `${latestBid.name}, your selected bid is: $${latestBid.selectedBid}`;
+            
+            // Display all bids
+            bidList.innerHTML = '';
+            allBids.forEach(bid => {
+                const bidItem = document.createElement('div');
+                bidItem.className = 'bid-item';
+                bidItem.innerHTML = `
+                    <strong>${bid.name}</strong>: 
+                    Bid 1: $${bid.bids[0]}, 
+                    Bid 2: $${bid.bids[1]}, 
+                    Bid 3: $${bid.bids[2]} 
+                    <br>Selected for competition: $${bid.selectedBid}
+                `;
+                bidList.appendChild(bidItem);
+            });
+            
+            // Determine winner if there are multiple bidders
+            if (allBids.length > 1) {
+                // Find the highest selected bid
+                let highestBid = 0;
+                let winner = null;
+                
+                allBids.forEach(bid => {
+                    const bidAmount = parseFloat(bid.selectedBid);
+                    if (bidAmount > highestBid) {
+                        highestBid = bidAmount;
+                        winner = bid;
+                    }
+                });
+                
+                // Highlight the winner
+                const winnerItem = document.createElement('div');
+                winnerItem.className = 'bid-item winner';
+                winnerItem.innerHTML = `
+                    <strong>WINNER: ${winner.name}</strong> with bid: $${winner.selectedBid}
+                `;
+                bidList.appendChild(winnerItem);
+            }
+            
+            // Scroll to results
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Print functionality
+        document.getElementById('printBtn').addEventListener('click', function() {
+            window.print();
+        });
+    </script>
+</body>
+</html>
