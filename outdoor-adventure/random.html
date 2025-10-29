@@ -18,6 +18,8 @@
             line-height: 1.6;
             padding: 20px;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
         
         .container {
@@ -29,6 +31,7 @@
             padding: 30px;
             position: relative;
             overflow: hidden;
+            flex: 1;
         }
         
         .container::before {
@@ -41,17 +44,48 @@
             background: linear-gradient(90deg, #ff8a00, #e52e71, #6a11cb);
         }
         
-        h1 {
+        .header-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #f0f0f0;
+        }
+        
+        .logo-container {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .logo {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #3498db, #2980b9);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 28px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .title-section {
+            flex: 1;
             text-align: center;
+        }
+        
+        h1 {
             color: #2c3e50;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
             font-size: 2.5rem;
         }
         
         .subtitle {
-            text-align: center;
             color: #7f8c8d;
-            margin-bottom: 30px;
             font-size: 1.1rem;
         }
         
@@ -263,9 +297,26 @@
             button {
                 display: none;
             }
+            .copyright {
+                position: fixed;
+                bottom: 10px;
+                left: 0;
+                right: 0;
+                text-align: center;
+            }
         }
         
-        @media (max-width: 600px) {
+        @media (max-width: 768px) {
+            .header-section {
+                flex-direction: column;
+                text-align: center;
+                gap: 15px;
+            }
+            
+            .logo-container {
+                justify-content: center;
+            }
+            
             .action-buttons {
                 flex-direction: column;
                 align-items: center;
@@ -273,6 +324,18 @@
             
             .action-buttons button {
                 width: 100%;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .logo {
+                width: 60px;
+                height: 60px;
+                font-size: 22px;
+            }
+            
+            h1 {
+                font-size: 2rem;
             }
         }
         
@@ -365,12 +428,37 @@
             margin-top: 20px;
             display: none;
         }
+        
+        .copyright {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        .copyright a {
+            color: #3498db;
+            text-decoration: none;
+        }
+        
+        .copyright a:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Single Name Bidding System</h1>
-        <p class="subtitle">Enter your name once to participate. Each person can only bid once!</p>
+        <div class="header-section">
+            <div class="logo-container">
+                <div class="logo">GMK</div>
+            </div>
+            <div class="title-section">
+                <h1>Single Name Bidding System</h1>
+                <p class="subtitle">Enter your name once to participate. Each person can only bid once!</p>
+            </div>
+        </div>
         
         <div class="phase-indicator">
             <div class="phase active" id="phase1">1. Submit Bids</div>
@@ -424,6 +512,10 @@
             <div class="action-buttons">
                 <button class="print-btn" id="printBtn">Print Results</button>
             </div>
+        </div>
+        
+        <div class="copyright">
+            &copy; 2023 G.K Morrison. All rights reserved. | GMK Bidding Systems
         </div>
     </div>
 
